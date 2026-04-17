@@ -54,22 +54,13 @@ DigiTicket/
 
 
 ## 🎥 Demo Video
-
 📌 Watch the working demo of DigiTicket:
 👉https://github.com/pallavisowreddi/DigiTicket-Smart-Ticket-Booking-System/blob/main/demo-video.mp4
 
 ## 📸 Screenshots
-"C:\Users\palla\OneDrive\Pictures\Screenshots\login_page.png"
-"C:\Users\palla\OneDrive\Pictures\Screenshots\movie_booking.png"
-"C:\Users\palla\OneDrive\Pictures\Screenshots\flight_login.png"
-"C:\Users\palla\OneDrive\Pictures\Screenshots\profile_page.png"
-"C:\Users\palla\OneDrive\Pictures\Screenshots\seat_selection.png"
-"C:\Users\palla\OneDrive\Pictures\Screenshots\booking.png"
-"C:\Users\palla\OneDrive\Pictures\Screenshots\b_confirmation.png"
-
+https://github.com/pallavisowreddi/DigiTicket-Smart-Ticket-Booking-System/blob/main/digiticket_screenshots.png
 
 ## ⚙️ Installation & Setup
-
 ### 1️⃣ Clone the Repository
 
 git clone https://github.com/your-username/DigiTicket.git
