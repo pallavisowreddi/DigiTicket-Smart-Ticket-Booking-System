@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        .search-banner {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+        }
+        .movie-card {
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            color: #fff;
+            transition: transform 0.3s;
+        }
+        .movie-card:hover {
+            transform: translateY(-6px);
+        }
+        .poster {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        .meta {
+            padding: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-wrap" style="display:flex; align-items:center; gap: 8px;"><img src="logo.svg" style="height:38px;" alt="DigiTicket"></a>
+            <nav class="nav-links">
+                <a href="flights.html">Flights</a>
+                <span style="color: #ccc;">/</span>
+                <a href="movies.html" class="active">Movies</a>
+                <div class="auth-group" id="nav-auth">
+                    <!-- Injected by script.js -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <h1 style="text-align: center; font-size: 28px; margin-bottom: 24px;">Movies</h1>
+        
+        <section class="search-banner">
+            <input type="text" class="white-input" placeholder="Search by Movie or City..." style="flex: 1; min-width: 200px;">
+            <select class="white-input" style="flex: 1; min-width: 200px;">
+                <option>All Genres</option>
+                <option>Action</option>
+                <option>Drama</option>
+                <option>Comedy</option>
+            </select>
+            <button class="btn-red-solid" style="padding: 16px 30px;">Search Movies</button>
+        </section>
+
+        <div class="movie-grid">
+            <article class="movie-card">
+                <img src="poster1.png" class="poster">
+                <div class="meta">
+                    <h3 style="font-size: 18px;">Aane Vaala</h3>
+                    <p style="color: #AAA; font-size: 14px; margin: 4px 0 14px;">Drama • Hindi</p>
+                    <button class="btn-red-solid" style="width: 100%;" onclick="window.location.href='movie-times.html?id=mm1'">Book Tickets</button>
+                </div>
+            </article>
+            
+            <article class="movie-card">
+                <img src="poster2.png" class="poster">
+                <div class="meta">
+                    <h3 style="font-size: 18px;">Bollywood</h3>
+                    <p style="color: #AAA; font-size: 14px; margin: 4px 0 14px;">Action • Hindi</p>
+                    <button class="btn-red-solid" style="width: 100%;" onclick="window.location.href='movie-times.html?id=mm2'">Book Tickets</button>
+                </div>
+            </article>
+
+            <article class="movie-card">
+                <img src="poster3.png" class="poster">
+                <div class="meta">
+                    <h3 style="font-size: 18px;">Pushpa 2</h3>
+                    <p style="color: #AAA; font-size: 14px; margin: 4px 0 14px;">Action • Telugu</p>
+                    <button class="btn-red-solid" style="width: 100%;" onclick="window.location.href='movie-times.html?id=mm3'">Book Tickets</button>
+                </div>
+            </article>
+
+            <article class="movie-card">
+                <img src="poster4.png" class="poster">
+                <div class="meta">
+                    <h3 style="font-size: 18px;">Salaar</h3>
+                    <p style="color: #AAA; font-size: 14px; margin: 4px 0 14px;">Action • Telugu</p>
+                    <button class="btn-red-solid" style="width: 100%;" onclick="window.location.href='movie-times.html?id=mm4'">Book Tickets</button>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

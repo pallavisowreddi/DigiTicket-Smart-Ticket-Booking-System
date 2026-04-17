@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Booking - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FAF6F0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding-bottom: 60px;
+        }
+        /* Top Navigation */
+        .navbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 40px;
+            background: transparent;
+            max-width: 900px; margin: 0 auto;
+        }
+        .nav-logo { display:flex; align-items:center; }
+        .nav-logo img { height: 45px; }
+
+        .page-title {
+            font-family: 'Times New Roman', serif;
+            font-size: 32px; font-weight: 600; color: #000; letter-spacing: 2px;
+            margin-left: 20px;
+        }
+        
+        .main-container { max-width: 900px; margin: 40px auto; padding: 20px;}
+
+        /* Warning Box */
+        .warning-box {
+            background-color: #E6D5B8; border-radius: 20px; padding: 30px; margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            width: 60%;
+        }
+        .warning-title { font-family: 'Times New Roman', serif; font-size: 20px; font-weight: 600; margin-bottom: 10px; color:#000;}
+        .warning-sub { font-family: 'Times New Roman', serif; font-size: 14px; font-weight: 500; color:#666; width: 60%;}
+
+        /* Layout Grid */
+        .split-grid {
+            display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start;
+        }
+        
+        /* Shared Panel Styling */
+        .box-panel {
+            background-color: #E6D5B8; border-radius: 20px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            margin-bottom: 25px;
+        }
+        .box-header {
+            font-size: 14px; font-weight: 700; margin-bottom: 20px; color: #000; text-align: center;
+            font-family: 'Times New Roman', serif; letter-spacing: 0.5px;
+        }
+
+        /* Forms */
+        .form-input {
+            width: 100%; padding: 12px 14px; border: none; background-color: #FFF;
+            font-size: 13px; color: #000; box-sizing: border-box; font-weight: 600; margin-bottom: 16px; outline: none;
+            font-family:"Times New Roman", serif;
+        }
+        .form-input::placeholder { color: #888; font-family:"Times New Roman", serif;}
+        
+        .bottom-row { display: flex; gap: 15px; align-items: center;}
+        .dob-group { display: flex; gap: 6px; flex: 1;}
+        .dob-box {
+            background: #FFF; border: none; padding: 10px 0; text-align: center; font-size: 13px; font-weight: 600; flex: 1; outline: none; color: #000;
+        }
+        .seat-box {
+            background: #FFF; padding: 10px; font-size: 13px; font-family:"Times New Roman", serif; flex: 1; text-align:center;
+            font-weight: 600; color: #000;
+        }
+
+        /* Reason Box */
+        .reason-box {
+            background-color: #E6D5B8; border-radius: 20px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            width: 60%; margin-top: 20px;
+        }
+        .reason-title { font-size: 13px; font-weight: 600; margin-bottom: 15px; color: #000;}
+
+        /* Summary specifics */
+        .summary-row {
+            display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 16px; color: #000; font-weight: 600; font-family: 'Inter', sans-serif;
+        }
+        .summary-row .val { font-weight: 800; font-size: 13px; }
+        .red-text { color: #C45454; }
+        hr.solid { border: none; border-top: 1px solid #000; margin: 15px 0; }
+        .summary-total {
+            display: flex; justify-content: space-between; font-weight: 800; font-size: 16px; color: #000; align-items: center;
+        }
+
+        /* Actions */
+        .action-row {
+            display: flex; gap: 15px; margin-top: 30px; justify-content: flex-end; align-items: center;
+        }
+        .btn-back {
+            background: #D9D9D9; color: #000; border: none; border-radius: 30px;
+            padding: 12px 30px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none;
+            font-family: 'Times New Roman', serif; letter-spacing: 0.5px;
+        }
+        .btn-confirm {
+            background: #C45454; color: #000; border: none; border-radius: 30px;
+            padding: 12px 30px; font-weight: 600; font-size: 14px; cursor: pointer;
+            font-family: 'Times New Roman', serif; letter-spacing: 0.5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+         <div style="display:flex; align-items:center;">
+             <a href="#" style="font-size:30px; text-decoration:none; color:#000; font-weight:bold; margin-right:15px;" onclick="history.back()">&#8592;</a>
+             <a href="index.html" class="nav-logo"><img src="../client/src/assets/logo.svg" alt="DigiTicket" onerror="this.src='logo.svg'"></a>
+         </div>
+         <div class="page-title" style="flex:1; text-align:center; font-size:38px; padding-right:80px; font-weight: 700;">Cancel Booking</div>
+    </header>
+
+    <main class="main-container">
+        
+        <div class="warning-box">
+            <div class="warning-title">Are you sure want to cancel this booking?</div>
+            <div class="warning-sub">Charges may apply as per our cancellation policy</div>
+        </div>
+
+        <div class="split-grid">
+            <!-- Left Info -->
+            <div class="box-panel" style="margin-bottom:0px;">
+                <div class="box-header">Contact Information</div>
+                
+                <input type="text" class="form-input" placeholder="Full Name" value="Anusha" readonly>
+                <input type="text" class="form-input" placeholder="Mobile Number" value="7670847551" readonly>
+                
+                <div class="bottom-row">
+                    <div class="dob-group">
+                        <input type="text" class="dob-box" value="19" readonly>
+                        <input type="text" class="dob-box" value="05" readonly>
+                        <input type="text" class="dob-box" value="2008" readonly>
+                    </div>
+                    <div class="seat-box">Seat no</div>
+                </div>
+            </div>
+
+            <!-- Right Summary -->
+            <div class="box-panel" style="margin-bottom:0px;">
+                <div class="box-header">Summary</div>
+                <br>
+                <div class="summary-row">
+                    <span>Base Fare</span>
+                    <span class="val">₹ 4,150</span>
+                </div>
+                <div class="summary-row red-text">
+                    <span>Cncellation Fees</span>
+                    <span class="val">₹ 500</span>
+                </div>
+                <hr class="solid">
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>₹ 4,499</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="reason-box">
+            <div class="reason-title">Enter reason for cancellation (Optional)</div>
+            <input type="text" class="form-input" style="margin-bottom: 0;">
+        </div>
+
+        <div class="action-row">
+            <a href="#" onclick="history.back()" class="btn-back">No, Go Back</a>
+            <button type="button" class="btn-confirm" onclick="cancelBooking()">Yes, Cancel Booking</button>
+        </div>
+        
+        <p id="msg" style="text-align: right; margin-top: 15px; font-weight: bold;"></p>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        function cancelBooking() {
+            const msg = document.getElementById("msg");
+            msg.style.color = "blue";
+            msg.innerText = "Processing cancellation...";
+
+            setTimeout(() => {
+                window.location.href = "cancel-success.html";
+            }, 800);
+        }
+    </script>
+</body>
+</html>

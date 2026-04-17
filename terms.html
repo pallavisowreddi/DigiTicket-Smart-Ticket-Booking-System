@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        .term-section { margin-bottom: 24px; }
+        .term-section h3 { font-size: 18px; margin-bottom: 10px; }
+        .term-section p { font-size: 15px; line-height: 1.6; color: #333; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-wrap" style="display:flex; align-items:center; gap: 8px;"><img src="logo.svg" style="height:38px;" alt="DigiTicket"></a>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 600px;">
+        <h1 style="text-align: center; font-size: 26px; margin-bottom: 30px;">Terms & Conditions</h1>
+        <p style="color: #666; font-weight: 500; margin-bottom: 24px;">Last Updated: October 2024</p>
+
+        <div class="term-section">
+            <h3>1. Acceptance of Terms</h3>
+            <p>By accessing or using the DigiTicket app, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, you may not access the service.</p>
+        </div>
+        <div class="term-section">
+            <h3>2. User Accounts</h3>
+            <p>When you create an account with us, you must provide information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms.</p>
+        </div>
+        <div class="term-section">
+            <h3>3. Bookings and Cancellations</h3>
+            <p>All flight and movie ticket sales are subject to availability. Cancellation policies vary depending on the specific airline or theater.</p>
+        </div>
+
+        <div style="margin-top: 40px;">
+            <label style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px; cursor: pointer;">
+                <input type="checkbox" id="agreeCheck" style="width: 20px; height: 20px; accent-color: var(--primary-red);">
+                <span style="font-weight: 600; font-size: 16px;">I agree to Terms & Conditions</span>
+            </label>
+            <button class="btn-red-solid" id="continueBtn" disabled style="width: 100%; padding: 16px; font-size: 18px; opacity: 0.5;" onclick="window.history.back()">
+                Continue
+            </button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('agreeCheck').addEventListener('change', function() {
+            const btn = document.getElementById('continueBtn');
+            btn.disabled = !this.checked;
+            btn.style.opacity = this.checked ? "1" : "0.5";
+        });
+    </script>
+</body>
+</html>

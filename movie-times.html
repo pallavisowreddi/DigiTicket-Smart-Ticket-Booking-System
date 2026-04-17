@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Time - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        .time-box {
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        .date-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .date-tab {
+            background: #fff;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            padding: 12px 20px;
+            text-align: center;
+            cursor: pointer;
+            min-width: 80px;
+            transition: all 0.2s;
+        }
+        .date-tab.active {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            color: #fff;
+        }
+        .date-tab .day { font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+        .date-tab .num { font-size: 20px; font-weight: 800; }
+        
+        .cinema-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .cinema-name { font-size: 18px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
+        .time-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .time-btn {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+            transition: border-color 0.2s;
+        }
+        .time-btn:hover {
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-wrap" style="display:flex; align-items:center; gap: 8px;"><img src="logo.svg" style="height:38px;" alt="DigiTicket"></a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="time-box">
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                <a href="movies.html" style="color: #000; text-decoration: none; font-weight: 700; font-size: 24px;">←</a>
+                <h1 style="font-size: 26px;" id="movieTitle">Select Showtime</h1>
+            </div>
+
+            <!-- Date Scroller -->
+            <div class="date-tabs">
+                <div class="date-tab active">
+                    <div class="day">Today</div>
+                    <div class="num">14</div>
+                </div>
+                <div class="date-tab">
+                    <div class="day">Tomorrow</div>
+                    <div class="num">15</div>
+                </div>
+                <div class="date-tab">
+                    <div class="day">Wed</div>
+                    <div class="num">16</div>
+                </div>
+                <div class="date-tab">
+                    <div class="day">Thu</div>
+                    <div class="num">17</div>
+                </div>
+            </div>
+
+            <!-- Cinemas -->
+            <div class="cinema-card">
+                <div class="cinema-name">
+                    <span>PVR INOX: Mall of India</span>
+                    <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">
+                        <span style="color: #e67e22;">★</span> 4.5
+                    </span>
+                </div>
+                <div class="time-pills">
+                    <a href="seat-selection.html" class="time-btn">09:30 AM</a>
+                    <a href="seat-selection.html" class="time-btn">11:45 AM</a>
+                    <a href="seat-selection.html" class="time-btn">03:15 PM</a>
+                    <a href="seat-selection.html" class="time-btn">08:35 PM</a>
+                </div>
+            </div>
+
+            <div class="cinema-card">
+                <div class="cinema-name">
+                    <span>Cinepolis: Logix City</span>
+                    <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">
+                        <span style="color: #e67e22;">★</span> 4.2
+                    </span>
+                </div>
+                <div class="time-pills">
+                    <a href="seat-selection.html" class="time-btn">10:15 AM</a>
+                    <a href="seat-selection.html" class="time-btn">01:30 PM</a>
+                    <a href="seat-selection.html" class="time-btn">06:00 PM</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

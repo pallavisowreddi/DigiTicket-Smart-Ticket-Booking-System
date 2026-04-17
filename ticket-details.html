@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Details - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        .t-container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .status-text {
+            font-family: 'Times New Roman', serif;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .ticket-card {
+            background: var(--bg-grey-ticket, #d9d9d9);
+            border-radius: 20px;
+            display: flex;
+            min-height: 350px;
+        }
+        
+        .t-left {
+            flex: 2;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #777;
+        }
+        .t-header-text {
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .t-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .input-wrap input {
+            width: 100%;
+            background: #fff;
+            border: none;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .dob-group { display: flex; gap: 10px; }
+        .dob-group input { width: 35px; text-align: center; margin-bottom: 0; }
+        .dob-group input.yyyy { width: 55px; }
+
+        .t-right {
+            flex: 1;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .seat-box {
+            background: #fff;
+            width: 120px;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .ref-pill {
+            background: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+            font-weight: 700;
+            font-size: 16px;
+            width: 80%;
+        }
+        
+        .hr-line {
+            border: none;
+            border-top: 1px solid #777;
+            margin: 20px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body style="background: #FAFAFA;">
+
+    <header class="navbar">
+        <div class="nav-minimal">
+            <div style="display:flex; align-items:center;">
+                <a href="dashboard.html" class="back-arrow">&#8592;</a>
+                <a href="index.html" class="logo-wrap" style="display:flex; align-items:center; gap: 8px;">
+                    <img src="logo.svg" style="height:45px;" alt="DigiTicket">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container t-container">
+        
+        <div class="status-text">
+            Booking Status: <span id="b-status" style="color: #1E9E44; font-weight:normal;">confirmed</span>
+        </div>
+        
+        <div class="ticket-card" id="t-card">
+            <div class="t-left">
+                <div class="t-header-text" id="t-type">Flight Ticket/E-Ticket</div>
+                
+                <h3 style="font-family:'Times New Roman',serif; font-size:20px; margin-bottom:40px;" id="t-no">Flight Number:6E 245</h3>
+                
+                <div class="t-row">
+                    <div style="font-weight:800; font-size:14px;" id="t-name">New Delhi &rarr; Mumbai</div>
+                    <div style="font-size:10px; font-weight:700; display:flex; gap:10px;">
+                        <div>
+                            Departure: <span style="font-weight:800;" id="t-dep">06:00</span> &rarr; Arrival: <span style="font-weight:800;" id="t-arr">08:15</span><br>
+                            Duration: <span style="font-weight:800;">2h 15m</span> | Non-stop
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="hr-line">
+                
+                <div class="input-wrap">
+                    <input type="text" id="p-name" placeholder="Full Name" readonly>
+                    <input type="text" id="p-mobile" placeholder="Mobile Number" readonly value="+91 9988776655">
+                    <div class="dob-group">
+                        <input type="text" placeholder="DD" readonly value="14">
+                        <input type="text" placeholder="MM" readonly value="10">
+                        <input type="text" placeholder="YYYY" class="yyyy" readonly value="1995">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="t-right">
+                <div class="seat-box" id="t-seat">Seat no<br>C07</div>
+                <hr class="hr-line">
+                <div class="ref-pill" id="b-ref">Booking Ref<br>#ABCD12</div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = getAuthToken();
+            if (!token) return;
+
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (id) document.getElementById("b-ref").innerHTML = "Booking Ref<br>" + id.substring(0,6).toUpperCase();
+
+            const user = JSON.parse(localStorage.getItem("digiticket_user") || "{}");
+            if (user.name) document.getElementById("p-name").value = user.name;
+            
+            try {
+                const res = await fetch("http://localhost:5000/api/bookings/" + id, {
+                    headers: { "Authorization": "Bearer " + token }
+                });
+                if(res.ok) {
+                    const data = await res.json();
+                    
+                    if(data.status === "cancelled" || data.bookingStatus === "Cancelled") {
+                        document.getElementById("b-status").innerText = "cancelled";
+                        document.getElementById("b-status").style.color = "red";
+                    }
+                    
+                    if(data.bookingType === "movie") {
+                        document.getElementById("t-type").innerText = "Movie Ticket/E-Ticket";
+                        document.getElementById("t-no").innerHTML = `Hall Number:6E 245<br><span style="font-size:14px; color:#555;">Movie Name: ${data.movie ? data.movie.title : 'Dhurandhar'}<br>Time: 09:15<br>Duration: 3h 15m</span>`;
+                        document.getElementById("t-name").innerText = ""; 
+                        document.getElementById("t-dep").parentElement.parentElement.style.display = "none";
+                    }
+                    
+                    if(data.seats && data.seats.length > 0) {
+                        document.getElementById("t-seat").innerText = data.seats.join(", ");
+                    }
+                }
+            } catch(err) {
+                console.log("Using mock UI data for ticket because backend/network failed.", err);
+            }
+        });
+    </script>
+</body>
+</html>

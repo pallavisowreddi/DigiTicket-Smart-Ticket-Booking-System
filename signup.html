@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FAF6F0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .signup-box {
+            background-color: #E6D5B8;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .signup-logo {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 120px;
+        }
+        .signup-title {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #000;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            flex: 1;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .form-group.col { margin-bottom: 0; }
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #000;
+        }
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 12px;
+            background-color: #FFF;
+            font-size: 15px;
+            color: #333;
+            box-sizing: border-box;
+            font-weight: 600;
+            outline: none;
+        }
+        .form-input::placeholder {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .terms-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000;
+        }
+        .terms-row input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #C45454;
+            cursor: pointer;
+        }
+        .terms-row a {
+            color: #C45454;
+            text-decoration: underline;
+        }
+
+        .btn-red {
+            width: 100%;
+            padding: 16px;
+            background-color: #C45454;
+            color: #FFF;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background 0.2s;
+        }
+        .btn-red:hover {
+            background-color: #a84646;
+        }
+        
+        .login-text {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            font-weight: 600;
+        }
+        .login-text a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-box">
+        <a href="index.html">
+            <img src="../client/src/assets/logo.svg" alt="DigiTicket" class="signup-logo" onerror="this.src='logo.svg'">
+        </a>
+        <h1 class="signup-title">Create an Account</h1>
+
+        <form id="signup-form">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label class="form-label">First Name</label>
+                    <input type="text" id="firstName" class="form-input" placeholder="First Name" required>
+                </div>
+                <div class="form-group col">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" id="lastName" class="form-input" placeholder="Last Name" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="email" class="form-input" placeholder="Email Address" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <!-- the image shows a series of asterisks as placeholder or pre-filled. We'll just leave string. -->
+                <input type="password" id="password" class="form-input" placeholder="••••••••••" required>
+            </div>
+            
+            <div class="terms-row">
+                <input type="checkbox" id="terms" required checked>
+                <label for="terms">I agree to the <a href="terms.html">Terms & Conditions</a></label>
+            </div>
+
+            <button type="submit" class="btn-red">Sign Up</button>
+
+            <div class="login-text">
+                Already have an account? <a href="login.html">Log in instead</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Signup successful! Please login.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert('Signup failed: ' + data.msg);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Network error. Could not reach server.");
+            }
+        });
+    </script>
+</body>
+</html>

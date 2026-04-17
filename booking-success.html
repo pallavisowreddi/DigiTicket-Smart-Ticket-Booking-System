@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Success - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FAF6F0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .navbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 40px; background: transparent; max-width: 900px; margin: 0 auto;
+        }
+        .nav-logo { display:flex; align-items:center; }
+        .nav-logo img { height: 45px; }
+
+        .container { max-width: 900px; margin: 40px auto; padding: 20px;}
+        
+        .status-header {
+            font-family: 'Times New Roman', serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #000;
+            display: flex; align-items: center; gap: 8px;
+            letter-spacing: 1px;
+        }
+        .status-header .green { color: #1E8C45; }
+
+        /* Ticket Box Styling */
+        .ticket-card {
+            background: #D5D5D5;
+            border-radius: 20px;
+            display: flex;
+            min-height: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .ticket-left { flex: 7; display: flex; flex-direction: column; }
+        .ticket-right { flex: 2.5; border-left: 1px solid #888; display: flex; flex-direction: column; }
+
+        /* Left Side */
+        .ticket-top {
+            padding: 30px 40px; flex: 1;
+        }
+        .ticket-title { font-family: 'Times New Roman', serif; font-size: 22px; text-align: center; margin-bottom: 40px; font-weight: 600; letter-spacing: 1px;}
+        .flight-number { font-family: 'Times New Roman', serif; font-size: 24px; margin-bottom: 30px; font-weight: 600; letter-spacing: 1px;}
+        
+        .route-info { display: flex; gap: 40px; align-items: center; justify-content: center; margin-bottom: 10px;}
+        .route-title { font-size: 16px; font-weight: 800; color: #000; }
+        .route-sub { font-size: 10px; font-weight: 600; color: #333; line-height: 1.6; letter-spacing: 0.5px;}
+
+        .ticket-bottom {
+            padding: 30px 40px;
+            border-top: 1px solid #888;
+        }
+        .input-mock {
+            background: #FFF; padding: 12px 14px; font-size: 12px; font-family:"Times New Roman", serif; font-weight:500;
+            margin-bottom: 15px; color: #555; width: 60%;
+        }
+        .dob-mocks { display: flex; gap: 10px; }
+        .dob-mock { background: #FFF; padding: 12px 14px; font-size: 12px; font-weight:700; color: #555; text-align: center; min-width: 30px;}
+
+        /* Right Side */
+        .ticket-right-top {
+            flex: 1; border-bottom: 1px solid #888; display: flex; align-items: center; justify-content: center;
+        }
+        .square-box { background: #FFF; width: 140px; height: 90px; display: flex; align-items: center; justify-content: center; font-family: 'Times New Roman', serif; font-size: 24px; font-weight: 600;}
+        
+        .ticket-right-bottom {
+            flex: 0.6; display: flex; align-items: center; justify-content: center;
+        }
+        .ref-box { background: #FFF; padding: 15px 30px; font-family: 'Times New Roman', serif; font-size: 18px; font-weight: 600; width: 100px; text-align: center;}
+
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div style="display:flex; align-items:center;">
+             <a href="index.html" style="font-size:30px; text-decoration:none; color:#000; font-weight:bold; margin-right:15px;" onclick="history.back()">&#8592;</a>
+             <a href="index.html" class="nav-logo"><img src="../client/src/assets/logo.svg" alt="DigiTicket" onerror="this.src='logo.svg'"></a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="status-header">
+            Booking Status: <span class="green">confirmed</span>
+        </div>
+
+        <div class="ticket-card">
+            <div class="ticket-left">
+                <div class="ticket-top">
+                    <div class="ticket-title">Flight Ticket/E-Ticket</div>
+                    <div class="flight-number">Flight Number:6E 245</div>
+                    
+                    <div class="route-info">
+                        <div class="route-title">New Delhi → Mumbai</div>
+                        <div class="route-sub">
+                            Departure: <span style="font-weight:800; color:#000;">06:00 → </span> Arrival: <span style="font-weight:800; color:#000;">08:15</span><br>
+                            Duration: <span style="font-weight:800; color:#000;">2h 15m</span> | Non-stop
+                        </div>
+                    </div>
+                </div>
+                <div class="ticket-bottom">
+                    <div class="input-mock">Full Name</div>
+                    <div class="input-mock">Mobile Number</div>
+                    <div class="dob-mocks">
+                        <div class="dob-mock">DD</div>
+                        <div class="dob-mock">MM</div>
+                        <div class="dob-mock" style="width: 50px;">YYYY</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ticket-right">
+                <div class="ticket-right-top">
+                    <div class="square-box">Seat no</div>
+                </div>
+                <div class="ticket-right-bottom">
+                    <div class="ref-box">Booking Ref</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const bookingId = params.get('id');
+            // Mock integration could populate data
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="#" class="back-btn" onclick="history.back()">&#8592;</a>
+            <a href="index.html">
+                <img src="../client/src/assets/logo.svg" class="logo-img" alt="DigiTicket" onerror="this.src='logo.svg'">
+            </a>
+        </div>
+        <a href="profile-menu.html" class="nav-right">
+            <div class="avatar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            My Profile
+        </a>
+    </header>
+
+    <main class="container">
+
+        <!-- Animated Hero Carousel -->
+        <div class="hero-slider-wrapper">
+            <div class="hero-slider-track" id="slider-track">
+                <!-- Using the large movie theater image and screenshots for sliding -->
+                <img src="../client/src/assets/image 115.png" alt="Book Tickets Online">
+                <img src="../client/src/assets/Screenshot 2026-01-05 205732 1.png" alt="Explore Flights">
+                <img src="../client/src/assets/Screenshot 2026-01-05 214154 1.png" alt="Trending Movies">
+            </div>
+            <div class="slider-dots" id="dots">
+                <div class="slider-dot active" onclick="goToSlide(0)"></div>
+                <div class="slider-dot" onclick="goToSlide(1)"></div>
+                <div class="slider-dot" onclick="goToSlide(2)"></div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div style="display:flex; gap:20px; justify-content:center; margin-bottom: 40px;">
+            <button class="profile-menu-btn" style="padding: 12px 40px; border:none;" onclick="window.location.href='flights.html'">Flights</button>
+            <button class="profile-menu-btn" style="padding: 12px 40px; border:none;" onclick="document.getElementById('movies-sec').scrollIntoView({behavior:'smooth'})">Movies</button>
+        </div>
+
+        <h3 style="font-size: 20px; margin-bottom: 20px;">Popular Flight Routes</h3>
+        <div>
+            <div class="route-pill">
+                <div class="route-text">Mumbai <span class="route-arrow">&#8596;</span> Delhi</div>
+                <button class="btn-book" onclick="window.location.href='flights.html?from=Mumbai&to=Delhi'">Book Now</button>
+            </div>
+            <div class="route-pill">
+                <div class="route-text">Delhi <span class="route-arrow">&#8596;</span> Hyderabad</div>
+                <button class="btn-book" onclick="window.location.href='flights.html?from=Delhi&to=Hyderabad'">Book Now</button>
+            </div>
+            <div class="route-pill">
+                <div class="route-text">Bengaluru <span class="route-arrow">&#8596;</span> Mumbai</div>
+                <button class="btn-book" onclick="window.location.href='flights.html?from=Bengaluru&to=Mumbai'">Book Now</button>
+            </div>
+        </div>
+        
+        <h3 id="movies-sec" style="font-size: 20px; margin-top: 50px; margin-bottom: 20px;">Trending Movies</h3>
+        <!-- Horizontal Scroll Section -->
+        <div class="horizontal-scroll-container">
+            <a href="movies.html" class="poster-card"><img src="../client/src/assets/image 110.png" alt="Dhurandhar"></a>
+            <a href="movies.html" class="poster-card"><img src="../client/src/assets/image 111.png" alt="Psych"></a>
+            <a href="movies.html" class="poster-card"><img src="../client/src/assets/image 112.png" alt="Champion"></a>
+            <a href="movies.html" class="poster-card"><img src="../client/src/assets/image 113.png" alt="Bhoot"></a>
+        </div>
+        
+        <div class="bottom-links">
+            <a href="terms.html" class="bottom-link">Terms and conditions</a>
+            <a href="help.html" class="bottom-link">Help Desk</a>
+        </div>
+        
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Hero Slider Logic
+        let currentSlide = 0;
+        const track = document.getElementById("slider-track");
+        const dots = document.querySelectorAll(".slider-dot");
+        const slides = 3;
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, index) => {
+                dot.className = index === currentSlide ? "slider-dot active" : "slider-dot";
+            });
+        }
+
+        function goToSlide(n) {
+            currentSlide = n;
+            updateCarousel();
+        }
+
+        // Auto transition every 4.5 seconds
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides;
+            updateCarousel();
+        }, 4500);
+    </script>
+</body>
+</html>

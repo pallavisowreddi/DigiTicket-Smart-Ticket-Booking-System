@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FAF6F0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            background: transparent;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+        .nav-logo img {
+            height: 40px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+        }
+        .btn-logout {
+            border: 1px solid #D9534F;
+            color: #D9534F;
+            background: transparent;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        .box-panel {
+            background-color: #E6D5B8;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            position: relative;
+        }
+        .box-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #000;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #000;
+        }
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 8px;
+            background-color: #FFF;
+            font-size: 14px;
+            color: #000;
+            box-sizing: border-box;
+            font-weight: 600;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        .dob-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .dob-box {
+            background: #FFF;
+            border: none;
+            padding: 14px;
+            text-align: left;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            flex: 1;
+            box-sizing: border-box;
+            outline: none;
+            color: #000;
+        }
+        .btn-back {
+            background: #FFF;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 15px;
+            display: block;
+            margin: 30px auto 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="nav-logo">
+            <img src="../client/src/assets/logo.svg" alt="DigiTicket" onerror="this.src='logo.svg'">
+        </a>
+        <div class="nav-links">
+            <a href="flights.html">Flights</a>
+            <span style="color:#aaa;">/</span>
+            <a href="movies.html">Movies</a>
+            <button class="btn-logout" onclick="handleLogout()">Log Out</button>
+        </div>
+    </header>
+
+    <main class="profile-container">
+        <div class="box-panel">
+            <a href="#" class="back-arrow" onclick="history.back()" style="position:absolute; left: 30px; top:30px; text-decoration:none; color:#000; font-size:20px; font-weight:bold;">&#8592;</a>
+            <div class="box-title">My Profile</div>
+            
+            <form id="profileForm">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" id="fullName" placeholder="Enter full name" value="John Doe">
+                
+                <label class="form-label">Email ID</label>
+                <input type="email" class="form-input" id="emailId" placeholder="Enter email address" value="johndoe@example.com">
+                
+                <label class="form-label">Contact Number</label>
+                <input type="text" class="form-input" id="contact" placeholder="Enter contact number" value="+91 9876543210">
+                
+                <label class="form-label">Date of birth</label>
+                <div class="dob-group">
+                    <input type="text" class="dob-box" placeholder="DD" value="14" maxlength="2">
+                    <input type="text" class="dob-box" placeholder="MM" value="10" maxlength="2">
+                    <input type="text" class="dob-box" placeholder="YYYY" value="1995" maxlength="4" style="flex:1.5;">
+                </div>
+            </form>
+            
+            <button type="button" class="btn-back" onclick="window.history.back()">Back</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = JSON.parse(localStorage.getItem("digiticket_user") || "{}");
+            if(user.name) document.getElementById("fullName").value = user.name;
+            if(user.email) document.getElementById("emailId").value = user.email;
+        });
+    </script>
+</body>
+</html>

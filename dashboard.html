@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FAF6F0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding-bottom: 60px;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 40px;
+            background: transparent;
+        }
+        .nav-logo { display:flex; align-items:center; }
+        .nav-logo img { height: 45px; }
+
+        .dash-container {
+            max-width: 900px;
+            margin: 40px auto;
+        }
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            margin-top: 40px;
+            font-family: 'Times New Roman', serif;
+            color: #000;
+        }
+
+        .booking-card {
+            background-color: #E6D5B8;
+            border-radius: 12px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .img-box {
+            width: 120px; height: 70px; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 20px; color: #fff; background: #fff; text-align: center;
+        }
+        .img-box.indigo { background: #1B317A; font-style: italic; }
+        .img-box.air-india { font-family: 'Inter', sans-serif; color: #D0142A; font-size: 16px; letter-spacing: -0.5px;}
+        .img-box.vistara { background: #401C46; color: #DCAC61; font-family: 'Times New Roman', serif; flex-direction: column; font-size: 14px; font-weight:400;}
+
+        .info-box {
+            flex: 1; padding-left: 30px;
+        }
+        .title-top {
+            font-family: 'Times New Roman', serif; font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #000;
+        }
+        .details-text {
+            font-size: 12px; font-weight: 600; color: #000; font-family: 'Inter', sans-serif; line-height: 1.6;
+        }
+
+        .price-text {
+            font-weight: 800; font-size: 16px; color: #000; min-width: 80px; text-align: right; margin-right: 30px;
+        }
+
+        .btn-view {
+            background: #1B4AA2; color: #FFF; border: none; border-radius: 30px;
+            padding: 10px 25px; font-weight: 700; font-size: 13px; cursor: pointer; display: inline-block; text-decoration: none;
+        }
+        .btn-view.grey { background: #000; }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div style="display:flex; align-items:center;">
+             <a href="#" style="font-size:24px; text-decoration:none; color:#000; font-weight:bold; margin-right:15px;" onclick="history.back()">&#8592;</a>
+             <a href="index.html" class="nav-logo"><img src="../client/src/assets/logo.svg" alt="DigiTicket" onerror="this.src='logo.svg'"></a>
+        </div>
+    </header>
+
+    <main class="dash-container">
+        <!-- Flights -->
+        <h2 class="section-title">My Flight Bookings</h2>
+        <div id="flight-bookings-list">
+            <p style="text-align:center; color:#888;">No flight bookings found.</p>
+        </div>
+
+        <!-- Movies -->
+        <h2 class="section-title">My Movie Bookings</h2>
+        <div id="movie-bookings-list">
+            <p style="text-align:center; color:#888;">No movie bookings found.</p>
+        </div>
+        
+        <!-- Cancellations -->
+        <h2 class="section-title">Cancellations</h2>
+        <div id="cancellations-list">
+             <p style="text-align:center; color:#888;">No cancelled bookings.</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        async function fetchBookings() {
+            const token = getAuthToken();
+            if (!token) {
+                window.location.href = "login.html";
+                return;
+            }
+            
+            try {
+                const response = await fetch("http://localhost:5000/api/bookings/my", {
+                    headers: { "Authorization": "Bearer " + token }
+                });
+                const data = await response.json();
+                
+                if (!response.ok || !data.length) {
+                    return; // Lists will show defaults
+                }
+                
+                const flightsList = document.getElementById("flight-bookings-list");
+                const moviesList = document.getElementById("movie-bookings-list");
+                const canxList = document.getElementById("cancellations-list");
+                
+                const flights = [];
+                const movies = [];
+                const cancellations = [];
+                
+                data.forEach(b => {
+                    if(b.bookingStatus === "Cancelled" || b.status === "cancelled") cancellations.push(b);
+                    else if(b.bookingType === "flight") flights.push(b);
+                    else if(b.bookingType === "movie") movies.push(b);
+                });
+                
+                const renderFlightRow = (b, isCancelled) => {
+                    const price = b.totalAmount || "4,999";
+                    const btnLabel = isCancelled ? "View Details" : "View Ticket";
+                    const actionUrl = isCancelled ? `ticket-cancelled.html?id=${b.bookingId}` : `booking-success.html?id=${b.bookingId}`;
+                    
+                    // Mock airline name logic
+                    let airline = "Indigo";
+                    let classNm = "indigo";
+                    if(price > 5000 && price < 6000) { airline = "Air India"; classNm="air-india"; }
+                    if(price > 6000) { airline = "Vistara"; classNm="vistara";}
+                    
+                    return `
+                        <div class="booking-card">
+                            <div class="img-box ${classNm}">
+                                ${airline}
+                            </div>
+                            <div class="info-box">
+                                <div class="title-top">${airline}</div>
+                                <div class="details-text" style="display:flex; justify-content:space-between; align-items:center;">
+                                    <div>
+                                        Departure: <span style="font-weight:800;">06:00</span> → Arrival: <span style="font-weight:800;">08:15</span> <br>
+                                        <span style="color:#555; font-size:10px;">Duration: <span style="color:#000;">2h 15m</span> | Non-stop</span>
+                                    </div>
+                                    <div class="price-text">₹${price}</div>
+                                </div>
+                            </div>
+                            <button class="btn-view ${isCancelled ? 'grey' : ''}" onclick="window.location.href='${actionUrl}'">${btnLabel}</button>
+                        </div>
+                    `;
+                }
+                
+                const renderMovieRow = (b, isCancelled) => {
+                    const price = b.totalAmount || "500";
+                    const btnLabel = isCancelled ? "View Details" : "View Ticket";
+                    const actionUrl = isCancelled ? `cancel-booking.html?id=${b.bookingId}` : `ticket-details.html?id=${b.bookingId}`;
+                    const imgUrl = b.movie ? b.movie.posterUrl : 'poster1.png';
+                    const title = b.movie ? b.movie.title : 'Movie Name';
+                    
+                    return `
+                         <div class="booking-card">
+                            <div class="img-box" style="padding:0; overflow:hidden;">
+                                <img src="${imgUrl}" style="width:100px; height:80px; object-fit:cover;">
+                            </div>
+                            <div class="info-box">
+                                <div class="title-top">${title}</div>
+                                <div class="details-text" style="display:flex; justify-content:space-between; align-items:center;">
+                                    <div>
+                                        MALL SEAT - 09:15 Show<br>
+                                        <span style="color:#555; font-size:10px;">Duration: <span style="color:#000;">3 hr 00m</span></span>
+                                    </div>
+                                    <div class="price-text">₹${price}</div>
+                                </div>
+                            </div>
+                            <button class="btn-view ${isCancelled ? 'grey' : ''}" onclick="window.location.href='${actionUrl}'">${btnLabel}</button>
+                        </div>
+                    `;
+                }
+                
+                if(flights.length > 0) flightsList.innerHTML = flights.map(b => renderFlightRow(b, false)).join("");
+                if(movies.length > 0) moviesList.innerHTML = movies.map(b => renderMovieRow(b, false)).join("");
+                if(cancellations.length > 0) {
+                    canxList.innerHTML = cancellations.map(b => {
+                        return b.bookingType === "flight" ? renderFlightRow(b, true) : renderMovieRow(b, true);
+                    }).join("");
+                }
+                
+            } catch (err) {
+                console.error("Dashboard error:", err);
+            }
+        }
+        
+        document.addEventListener("DOMContentLoaded", fetchBookings);
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Selection - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FAF6F0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            background: transparent;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+        .nav-logo img {
+            height: 40px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+        }
+        .nav-links .split {
+            color: #aaa;
+        }
+        .btn-logout {
+            border: 1px solid #D9534F;
+            color: #D9534F;
+            background: transparent;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .seat-container {
+            max-width: 900px;
+            margin: 40px auto;
+            position: relative;
+            background: #E6D5B8;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .header-top {
+            display: flex; align-items: center; border-bottom: 2px dashed #B8A895; padding-bottom: 20px;
+        }
+        .header-top h2 { font-size: 20px; font-weight: 700; margin: 0 auto; color: #000; }
+        
+        .seat {
+            width: 25px; height: 25px;
+            background: #FFF; color: #555;
+            border-radius: 4px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 11px; font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .seat:hover { background: #eee; }
+        .seat.selected { background: #1E9E44; color: #fff; }
+        
+        .row-label {
+            width: 30px; height: 25px;
+            background: transparent; color: #000;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 14px; font-weight: 700;
+        }
+
+        .screen-banner {
+            background: #ccc; text-align: center;
+            padding: 10px; font-weight: 600; border-radius: 20px;
+            margin: 40px auto 20px auto; width: 60%;
+            color: #333;
+        }
+
+        .btn-confirm {
+            background: #C45454;
+            color: #FFF;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="nav-logo">
+            <img src="../client/src/assets/logo.svg" alt="DigiTicket" onerror="this.src='logo.svg'">
+        </a>
+        <div class="nav-links">
+            <a href="flights.html">Flights</a>
+            <span class="split">/</span>
+            <a href="movies.html">Movies</a>
+            <span id="user-greeting" style="color: #000;">Hello, <span id="u-name">undefined</span> ▼</span>
+            <button class="btn-logout" onclick="handleLogout()">Log Out</button>
+        </div>
+    </header>
+
+    <main class="seat-container">
+        <div class="header-top">
+            <a href="#" class="back-arrow" onclick="history.back()" style="position:absolute; left: 40px; text-decoration:none; color:#000; font-size:20px; font-weight:bold;">&#8592;</a>
+            <h2>₹180 Executive</h2>
+        </div>
+
+        <div style="display:flex; justify-content:center; margin-top:30px;" id="seat-grid-wrap">
+            <div id="seat-map" style="display: grid; gap: 8px;"></div>
+        </div>
+        
+        <div class="screen-banner">Screen</div>
+        
+        <div style="text-align: right; margin-top:30px;">
+            <button class="btn-confirm" onclick="goToBooking()" id="nextBtn">Select Seats & Continue</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = JSON.parse(localStorage.getItem("digiticket_user") || "{}");
+            if(user.name) document.getElementById("u-name").innerText = user.name;
+        });
+
+        // Generate the 16x15 grid
+        const mapDiv = document.getElementById("seat-map");
+        // Rows A-P
+        const rows = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
+        
+        let html = "";
+        rows.forEach(r => {
+            html += `<div style="display:flex; gap:8px; align-items:center; margin-bottom:4px;">`;
+            html += `<div class="row-label">${r}</div>`;
+            
+            // Generate columns 01 to 15 with gaps
+            for(let c=1; c<=15; c++) {
+                let num = c.toString().padStart(2, '0');
+                
+                // Gaps
+                let isGap = false;
+                if(r === 'A' || r === 'B') {
+                    if(c === 5 || c === 6 || c === 10 || c === 11 || c === 12) isGap = true;
+                } else {
+                    if(c === 5 || c === 6 || c === 10) isGap = true;
+                }
+                
+                if(isGap) {
+                    html += `<div style="width:25px; height:25px;"></div>`;
+                } else {
+                    html += `<div class="seat" onclick="toggleSeat(this, '${r}${num}')">${num}</div>`;
+                }
+            }
+            html += `</div>`;
+        });
+        mapDiv.innerHTML = html;
+        
+        // Seat interactions
+        let selectedSeats = [];
+        const MAX_SEATS = 10;
+        
+        function toggleSeat(el, id) {
+            if(el.classList.contains("selected")) {
+                el.classList.remove("selected");
+                selectedSeats = selectedSeats.filter(s => s !== id);
+            } else {
+                if(selectedSeats.length >= MAX_SEATS) {
+                    alert("You can only select up to " + MAX_SEATS + " seats at a time.");
+                    return;
+                }
+                el.classList.add("selected");
+                selectedSeats.push(id);
+            }
+            
+            updateNextButton();
+        }
+        
+        function updateNextButton() {
+            const nextBtn = document.getElementById('nextBtn');
+            if (selectedSeats.length > 0) {
+                nextBtn.innerText = `Continue with ${selectedSeats.length} Seat${selectedSeats.length > 1 ? 's' : ''}`;
+            } else {
+                nextBtn.innerText = "Select Seats & Continue";
+            }
+        }
+        
+        function goToBooking() {
+            if (selectedSeats.length === 0) {
+                alert("Please select at least one seat before continuing.");
+                return;
+            }
+            const params = new URLSearchParams(window.location.search);
+            const movieId = params.get('movie') || 'm1';
+            window.location.href = `movie-booking.html?type=movie&id=${movieId}&seats=${selectedSeats.join(",")}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Book - DigiTicket</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        .how-container {
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+            position: relative;
+        }
+        .header-oval {
+            background: #114299;
+            color: #FFC107;
+            text-align: center;
+            border-radius: 100px / 50px; /* Oval shape */
+            padding: 30px 20px;
+            margin: 20px auto 40px auto;
+            width: 90%;
+            font-family: 'Times New Roman', serif;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+        .step-block {
+            display: flex;
+            align-items: center;
+            height: 120px;
+            margin: 0px auto;
+            width: 85%;
+            position: relative;
+        }
+        
+        /* The connecting downward arrows between steps */
+        .step-block:not(:last-child)::after {
+            content: '&#11167;'; /* Down arrow */
+            font-family: sans-serif;
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            font-size: 28px;
+            font-weight: 800;
+            color: #000;
+            z-index: 10;
+        }
+        
+        .step-left {
+            flex: 2;
+            padding: 0 40px;
+            color: #000;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .step-left h2 { font-family: 'Times New Roman', serif; font-size: 22px; margin-bottom: 2px; }
+        .step-left p { font-size: 14px; font-weight: 600; }
+        .step-left hr { border: none; border-bottom: 1px solid rgba(0,0,0,0.3); margin: 6px 0; max-width: 80%; }
+        
+        .step-right {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+            background: rgba(0,0,0,0.1); /* Slight darken for image block */
+        }
+        
+        .s-orange { background: #F69324; }
+        .s-green  { background: #7Aad67; }
+        .s-red    { background: #D94632; }
+        .s-purple { background: #6162A5; }
+    </style>
+</head>
+<body style="background: #FAFAFA;">
+
+    <header class="navbar">
+        <div class="nav-minimal">
+            <div style="display:flex; align-items:center;">
+                <a href="index.html" class="back-arrow">&#8592;</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container how-container">
+        
+        <div class="header-oval">
+            <span style="color:#fff;">How to Book</span> Tickets Online
+        </div>
+        
+        <!-- Step 1 -->
+        <div class="step-block s-orange" style="margin-bottom: 25px;">
+            <div class="step-left">
+                <h2>1. Choose Event</h2>
+                <hr>
+                <p>Select Movie, Flight</p>
+            </div>
+            <div class="step-right">
+                💻✈️
+            </div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="step-block s-green" style="margin-bottom: 25px;">
+            <div class="step-left">
+                <h2>2. Select Tickets</h2>
+                <hr>
+                <p>Pick Date, Time & Seats</p>
+            </div>
+            <div class="step-right">
+                📅⌚
+            </div>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="step-block s-red" style="margin-bottom: 25px;">
+            <div class="step-left">
+                <h2>3. Make Payment</h2>
+                <hr>
+                <p style="visibility: hidden;">Make Payment securely</p> <!-- Text wasn't explicitly below in mocking, just line -->
+            </div>
+            <div class="step-right">
+                💳📱
+            </div>
+        </div>
+        
+        <!-- Step 4 -->
+        <div class="step-block s-purple">
+            <div class="step-left">
+                <h2>4. Get Confirmation</h2>
+                <hr>
+                <p>Receive E-Ticket via Email</p>
+            </div>
+            <div class="step-right">
+                📧🎟️
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
