@@ -10,7 +10,6 @@ It provides secure authentication, an intuitive user interface, and efficient bo
 
 This project demonstrates real-world implementation of modern web technologies including frontend, backend, database, and API integration.
 
----
 
 ## ✨ Key Features
 
@@ -57,10 +56,7 @@ DigiTicket/
 ## 🎥 Demo Video
 
 📌 Watch the working demo of DigiTicket:
-
-👉 https://github.com/your-username/DigiTicket/assets/demo-video.mp4
-
----
+👉https://github.com/pallavisowreddi/DigiTicket-Smart-Ticket-Booking-System/blob/main/demo-video.mp4
 
 ## 📸 Screenshots
 "C:\Users\palla\OneDrive\Pictures\Screenshots\login_page.png"
@@ -99,9 +95,6 @@ Create a `.env` file inside the **server/** folder:
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
-```
-
----
 
 ## 🔗 API Endpoints
 
